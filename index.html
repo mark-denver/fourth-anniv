@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#fbf4ed" />
+		<title>For My Forever — Happy 4th Anniversary</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--cream: #fbf5ee;
+				--ink: #392c31;
+				--rose: #b45c70;
+				--rose2: #e4a4a3;
+				--line: #eadbd4;
+				--gold: #bd9561;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html {
+				scroll-behavior: smooth;
+			}
+			body {
+				margin: 0;
+				background: var(--cream);
+				color: var(--ink);
+				font-family: "DM Sans", sans-serif;
+			}
+			button {
+				font: inherit;
+			}
+			.serif {
+				font-family: "Playfair Display", serif;
+			}
+			.gate {
+				position: fixed;
+				inset: 0;
+				z-index: 20;
+				display: grid;
+				place-items: center;
+				padding: 24px;
+				background: radial-gradient(
+					ellipse at 50% 43%,
+					#fffaf5 0,
+					#f8ece5 64%,
+					#f3e2dc 100%
+				);
+				transition:
+					opacity 0.8s,
+					visibility 0.8s;
+			}
+			.gate.gone {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+			}
+			.gate-card {
+				text-align: center;
+				width: min(100%, 430px);
+				position: relative;
+			}
+			.gate-flower {
+				font-size: 48px;
+				display: block;
+				animation: float 3s ease-in-out infinite;
+			}
+			.eyebrow {
+				font-size: 10px;
+				letter-spacing: 0.24em;
+				text-transform: uppercase;
+				color: var(--rose);
+				font-weight: 700;
+			}
+			.gate h1 {
+				font:
+					500 clamp(35px, 7vw, 52px)/1.1 "Playfair Display",
+					serif;
+				margin: 14px 0 10px;
+			}
+			.gate p {
+				color: #78666a;
+				font-size: 14px;
+			}
+			.lock {
+				width: 60px;
+				height: 58px;
+				border: 1px solid #e9c9c2;
+				border-radius: 18px;
+				margin: 28px auto 17px;
+				display: grid;
+				place-items: center;
+				background: #fff9f5;
+				color: var(--rose);
+				font-size: 25px;
+				box-shadow: 0 10px 30px #8f566212;
+			}
+			.digits {
+				display: flex;
+				gap: 9px;
+				justify-content: center;
+				margin: 23px 0;
+			}
+			.digits input {
+				width: 43px;
+				height: 54px;
+				border: 1px solid #e4cdc7;
+				background: #fffaf7;
+				border-radius: 12px;
+				text-align: center;
+				font-size: 22px;
+				color: var(--ink);
+				outline: none;
+				transition: 0.2s;
+			}
+			.digits input:focus {
+				border-color: var(--rose);
+				box-shadow: 0 0 0 3px #b45c701c;
+			}
+			.unlock {
+				border: 0;
+				background: var(--rose);
+				color: white;
+				padding: 14px 28px;
+				border-radius: 99px;
+				cursor: pointer;
+				box-shadow: 0 8px 20px #b45c7038;
+				transition:
+					transform 0.2s,
+					background 0.2s;
+			}
+			.unlock:hover {
+				transform: translateY(-2px);
+				background: #9e4e62;
+			}
+			.error {
+				height: 20px;
+				color: #a3475b;
+				font-size: 12px;
+			}
+			.hint {
+				font-size: 11px !important;
+				color: #a28c88 !important;
+				margin-top: 13px;
+			}
+			.main {
+				overflow: hidden;
+				opacity: 0;
+				transition: opacity 1.1s;
+			}
+			.main.show {
+				opacity: 1;
+			}
+			.topbar {
+				position: absolute;
+				z-index: 3;
+				left: 0;
+				right: 0;
+				top: 0;
+				padding: 25px 6vw;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				color: white;
+				font-size: 11px;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+			}
+			.brand {
+				font-family: "Playfair Display", serif;
+				font-size: 17px;
+				letter-spacing: 0.03em;
+				text-transform: none;
+			}
+			.hero {
+				min-height: 720px;
+				height: 100svh;
+				max-height: 1000px;
+				position: relative;
+				display: grid;
+				place-items: center;
+				text-align: center;
+				color: #fff;
+				isolation: isolate;
+				background: #705452;
+			}
+			.hero:before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				z-index: -2;
+				background:
+					linear-gradient(180deg, #281b2940, #30202743 48%, #2b1b286e),
+					url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2200&q=85")
+						center 48% / cover;
+			}
+			.hero:after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				z-index: -1;
+				background: radial-gradient(
+					ellipse at center,
+					#311e2915,
+					transparent 70%
+				);
+			}
+			.hero-content {
+				padding: 100px 22px 55px;
+				animation: rise 1.2s both;
+			}
+			.hero .eyebrow {
+				color: #f5d6c6;
+			}
+			.hero h1 {
+				font:
+					500 clamp(48px, 9vw, 112px)/0.99 "Playfair Display",
+					serif;
+				letter-spacing: -0.045em;
+				margin: 20px 0;
+			}
+			.hero h1 em {
+				font-weight: 500;
+				color: #f4c3ba;
+			}
+			.hero-sub {
+				font-size: 14px;
+				letter-spacing: 0.09em;
+				color: #fff1e9;
+			}
+			.heart-rule {
+				display: flex;
+				gap: 13px;
+				align-items: center;
+				justify-content: center;
+				color: #f2c4bb;
+				margin: 27px auto;
+			}
+			.heart-rule:before,
+			.heart-rule:after {
+				content: "";
+				height: 1px;
+				width: 56px;
+				background: #ffffff68;
+			}
+			.scroll-cue {
+				position: absolute;
+				bottom: 25px;
+				font-size: 10px;
+				letter-spacing: 0.22em;
+				text-transform: uppercase;
+				color: #ffede4;
+			}
+			.scroll-cue span {
+				display: block;
+				margin: 10px auto 0;
+				width: 1px;
+				height: 30px;
+				background: #ffede4;
+				animation: stretch 1.6s infinite;
+			}
+			.section {
+				padding: 110px 7vw;
+			}
+			.section-head {
+				text-align: center;
+				margin: 0 auto 53px;
+				max-width: 640px;
+			}
+			.section-head .eyebrow {
+				margin-bottom: 15px;
+				display: block;
+			}
+			.section-head h2 {
+				font:
+					500 clamp(36px, 6vw, 58px)/1.1 "Playfair Display",
+					serif;
+				margin: 0 0 14px;
+			}
+			.section-head p {
+				color: #806f70;
+				line-height: 1.8;
+				font-size: 14px;
+			}
+			.gallery-wrap {
+				background: #f6ede6;
+			}
+			.gallery {
+				max-width: 1100px;
+				margin: auto;
+				display: grid;
+				grid-template-columns: 1.1fr 0.9fr 1fr;
+				grid-template-rows: 250px 230px;
+				gap: 18px;
+			}
+			.photo {
+				position: relative;
+				overflow: hidden;
+				border-radius: 5px;
+				background: #d8bcb0;
+				box-shadow: 0 14px 35px #61423b17;
+			}
+			.photo:nth-child(1) {
+				grid-row: span 2;
+			}
+			.photo:nth-child(4) {
+				grid-column: 2 / 4;
+			}
+			.photo img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+				transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+			}
+			.photo:hover img {
+				transform: scale(1.06);
+			}
+			.photo:after {
+				content: "";
+				position: absolute;
+				inset: 45% 0 0;
+				background: linear-gradient(transparent, #20171888);
+			}
+			.caption {
+				position: absolute;
+				z-index: 1;
+				bottom: 18px;
+				left: 20px;
+				color: white;
+				font:
+					italic 20px "Playfair Display",
+					serif;
+			}
+			.letter-section {
+				padding: 100px 24px 120px;
+				text-align: center;
+				background: #fbf5ee;
+			}
+			.letter-section .section-head {
+				margin-bottom: 32px;
+			}
+			.envelope-area {
+				height: 315px;
+				display: grid;
+				place-items: center;
+				perspective: 900px;
+				cursor: pointer;
+			}
+			.envelope {
+				position: relative;
+				width: min(370px, 84vw);
+				height: 220px;
+				background: #dca9a0;
+				border-radius: 3px;
+				box-shadow: 0 20px 50px #57343b20;
+				transition: transform 0.5s;
+			}
+			.envelope:before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				z-index: 2;
+				background: linear-gradient(140deg, #e9beb0, #d79894);
+				clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+			}
+			.flap {
+				position: absolute;
+				inset: 0;
+				background: #efc7b8;
+				clip-path: polygon(0 0, 100% 0, 50% 58%);
+				transform-origin: top;
+				transition: transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);
+				z-index: 3;
+			}
+			.seal {
+				position: absolute;
+				z-index: 4;
+				left: 50%;
+				top: 47%;
+				transform: translate(-50%, -50%);
+				width: 46px;
+				height: 46px;
+				border-radius: 50%;
+				display: grid;
+				place-items: center;
+				background: #a94f62;
+				color: white;
+				font-size: 20px;
+				box-shadow: 0 4px 10px #44202a35;
+				transition:
+					opacity 0.4s,
+					transform 0.4s;
+			}
+			.paper {
+				position: absolute;
+				z-index: 1;
+				left: 8%;
+				width: 84%;
+				height: 190px;
+				bottom: 10px;
+				background: #fffaf1;
+				padding: 24px 20px;
+				color: #5a4142;
+				box-shadow: 0 0 15px #583b3210;
+				transition: transform 0.85s 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.paper strong {
+				font:
+					italic 22px "Playfair Display",
+					serif;
+				color: #a44f62;
+			}
+			.paper span {
+				font-size: 11px;
+				line-height: 1.6;
+				margin-top: 9px;
+			}
+			.envelope.open .flap {
+				transform: rotateX(180deg);
+				z-index: 1;
+			}
+			.envelope.open .paper {
+				z-index: 4;
+				transform: translateY(-125px);
+			}
+			.envelope.open .seal {
+				opacity: 0;
+				transform: translate(-50%, -50%) scale(0.3);
+			}
+			.tap-note {
+				font-size: 11px;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: #9b7776;
+				margin-top: -3px;
+			}
+			.letter-copy {
+				max-height: 0;
+				overflow: hidden;
+				transition: max-height 1s ease;
+				max-width: 660px;
+				margin: 0 auto;
+				color: #655459;
+				line-height: 2;
+				font-size: 15px;
+			}
+			.letter-copy.open {
+				max-height: 800px;
+			}
+			.letter-copy p {
+				margin: 18px 0;
+			}
+			.letter-copy .sign {
+				font:
+					italic 28px "Playfair Display",
+					serif;
+				color: #a44f62;
+			}
+			.count-section {
+				position: relative;
+				text-align: center;
+				color: white;
+				padding: 100px 24px;
+				background:
+					linear-gradient(#472d38ba, #472d38c9),
+					url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000&q=85")
+						center/cover fixed;
+			}
+			.count-section .eyebrow {
+				color: #f3c6b4;
+			}
+			.count-section h2 {
+				font:
+					500 clamp(38px, 6vw, 63px) "Playfair Display",
+					serif;
+				margin: 15px 0;
+			}
+			.count-section > p {
+				color: #f5e2db;
+			}
+			.timer {
+				display: flex;
+				gap: clamp(12px, 4vw, 45px);
+				justify-content: center;
+				margin: 45px auto 30px;
+			}
+			.unit {
+				min-width: 68px;
+			}
+			.unit strong {
+				display: block;
+				font:
+					500 clamp(35px, 7vw, 65px) "Playfair Display",
+					serif;
+				color: #f6c9bb;
+			}
+			.unit span {
+				display: block;
+				margin-top: 8px;
+				font-size: 9px;
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+				color: #f2ddd5;
+			}
+			.wedding-date {
+				font-size: 13px;
+				letter-spacing: 0.17em;
+				text-transform: uppercase;
+				color: #f4d4c7;
+			}
+			.closing {
+				padding: 110px 24px;
+				text-align: center;
+				background: #f7ebe5;
+			}
+			.closing .big-heart {
+				font-size: 40px;
+				color: var(--rose2);
+				animation: pulse 1.4s infinite;
+			}
+			.closing h2 {
+				font:
+					italic 500 clamp(35px, 6vw, 60px) "Playfair Display",
+					serif;
+				margin: 18px 0;
+			}
+			.closing p {
+				font-size: 13px;
+				color: #826f71;
+			}
+			.footer {
+				text-align: center;
+				padding: 22px;
+				font-size: 10px;
+				letter-spacing: 0.12em;
+				color: #a38c88;
+				background: #f7ebe5;
+			}
+			.float-heart {
+				position: fixed;
+				z-index: 22;
+				pointer-events: none;
+				animation: drift 2.5s ease-out forwards;
+				color: #cf7184;
+			}
+			.confetti {
+				position: fixed;
+				z-index: 22;
+				top: -15px;
+				width: 8px;
+				height: 13px;
+				pointer-events: none;
+				animation: fall 3.4s linear forwards;
+			}
+			@keyframes rise {
+				from {
+					opacity: 0;
+					transform: translateY(22px);
+				}
+				to {
+					opacity: 1;
+					transform: none;
+				}
+			}
+			@keyframes float {
+				0%,
+				100% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-9px);
+				}
+			}
+			@keyframes stretch {
+				0%,
+				100% {
+					transform: scaleY(0.65);
+					transform-origin: top;
+				}
+				50% {
+					transform: scaleY(1);
+					transform-origin: top;
+				}
+			}
+			@keyframes pulse {
+				50% {
+					transform: scale(1.18);
+				}
+			}
+			@keyframes drift {
+				to {
+					transform: translateY(-110vh) rotate(30deg);
+					opacity: 0;
+				}
+			}
+			@keyframes fall {
+				to {
+					transform: translateY(110vh) rotate(700deg);
+					opacity: 0.2;
+				}
+			}
+			@media (max-width: 700px) {
+				.topbar {
+					padding: 19px 22px;
+				}
+				.topbar .right {
+					font-size: 9px;
+				}
+				.hero {
+					min-height: 650px;
+				}
+				.section {
+					padding: 78px 22px;
+				}
+				.gallery {
+					grid-template-columns: 1fr 1fr;
+					grid-template-rows: 220px 170px 190px;
+					gap: 10px;
+				}
+				.photo:nth-child(1) {
+					grid-row: span 2;
+				}
+				.photo:nth-child(4) {
+					grid-column: 1 / 3;
+				}
+				.caption {
+					font-size: 16px;
+					left: 12px;
+					bottom: 12px;
+				}
+				.count-section {
+					background-attachment: scroll;
+				}
+				.timer {
+					gap: 12px;
+				}
+				.unit {
+					min-width: 58px;
+				}
+				.unit span {
+					font-size: 8px;
+				}
+				.digits {
+					gap: 6px;
+				}
+				.digits input {
+					width: 38px;
+					height: 49px;
+				}
+				.paper {
+					padding: 18px 14px;
+				}
+				.paper span {
+					font-size: 10px;
+				}
+			}
+			@media (max-width: 380px) {
+				.digits input {
+					width: 34px;
+				}
+				.gallery {
+					grid-template-rows: 180px 150px 160px;
+				}
+				.timer {
+					gap: 5px;
+				}
+				.unit {
+					min-width: 51px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<section class="gate" id="gate" aria-label="Anniversary surprise lock">
+			<div class="gate-card">
+				<span class="gate-flower">✿</span>
+				<div class="eyebrow">A little something, just for you</div>
+				<h1 class="serif">For my<br /><em>favorite person</em></h1>
+				<p>Eight numbers open this little world.</p>
+				<div class="lock">♡</div>
+				<div
+					class="digits"
+					id="digits"
+					aria-label="Enter the eight-digit password"
+				></div>
+				<button class="unlock" id="unlock">Unlock your surprise&nbsp; →</button>
+				<div class="error" id="error" aria-live="polite"></div>
+				<p class="hint">A date that means forever ✨</p>
+			</div>
+		</section>
+		<main class="main" id="main">
+			<header class="topbar">
+				<div class="brand">for my forever ♡</div>
+				<div class="right">our story · year four</div>
+			</header>
+			<section class="hero">
+				<div class="hero-content">
+					<div class="eyebrow">To my love, my best friend, my future</div>
+					<div class="heart-rule">♡</div>
+					<h1>Happy 4th<br /><em>Anniversary</em></h1>
+					<p class="hero-sub">Four years down. Every lifetime to go.</p>
+					<div class="heart-rule">✦</div>
+				</div>
+				<div class="scroll-cue">A story made of us<span></span></div>
+			</section>
+			<section class="section gallery-wrap">
+				<div class="section-head">
+					<span class="eyebrow">Little moments, endless meaning</span>
+					<h2>My favorite place<br /><em>is next to you.</em></h2>
+					<p>
+						Every ordinary day became a favorite memory because I got to share
+						it with you.
+					</p>
+				</div>
+				<div class="gallery">
+					<figure class="photo">
+						<img
+							loading="lazy"
+							src="6de8a4bc-2073-4e6d-b023-8b6b5568196a.jpg"
+							alt="A couple holding hands at sunset"
+						/>
+						<figcaption class="caption">Where it all began</figcaption>
+					</figure>
+					<figure class="photo">
+						<img
+							loading="lazy"
+							src="3aa21912-80fb-44c4-99e7-607876cf8c0c.jpg"
+							alt="A couple sharing a joyful moment"
+						/>
+						<figcaption class="caption">My favorite laugh</figcaption>
+					</figure>
+					<figure class="photo">
+						<img
+							loading="lazy"
+							src="cover.jpg"
+							alt="A couple embracing"
+						/>
+						<figcaption class="caption">My safe place</figcaption>
+					</figure>
+					<figure class="photo">
+						<img
+							loading="lazy"
+							src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85"
+							alt="A romantic wedding celebration"
+						/>
+						<figcaption class="caption">
+							And our next great adventure
+						</figcaption>
+					</figure>
+				</div>
+				<p
+					style="
+						text-align: center;
+						font-size: 11px;
+						color: #9a8381;
+						margin: 27px 0 0;
+					"
+				>
+					Replace these pictures with your own favorite memories ♡
+				</p>
+			</section>
+			<section class="letter-section">
+				<div class="section-head">
+					<span class="eyebrow">A few words from my heart</span>
+					<h2>Open when you're<br /><em>ready, my love.</em></h2>
+					<p>I wrote this for you. Take your time.</p>
+				</div>
+				<div
+					class="envelope-area"
+					id="envelopeArea"
+					role="button"
+					tabindex="0"
+					aria-label="Open the love letter"
+				>
+					<div class="envelope" id="envelope">
+						<div class="paper">
+							<strong>To my beautiful future wife,</strong
+							><span
+								>Four years with you have been the greatest gift. And this is
+								only the beginning...</span
+							>
+						</div>
+						<div class="flap"></div>
+						<div class="seal">♥</div>
+					</div>
+				</div>
+				<div class="tap-note" id="tapNote">
+					Tap the envelope to open your letter
+				</div>
+				<article class="letter-copy" id="letter">
+					<p>My love,</p>
+					<p>
+						Four years ago, I could never have imagined how much joy, comfort,
+						and laughter one person could bring into my life. Then you came
+						along and made even the simplest days feel like something worth
+						remembering.
+					</p>
+					<p>
+						Thank you for being my favorite person to come home to, for
+						believing in us, and for loving me in all the little ways that mean
+						everything. I admire your heart, your strength, your kindness, and
+						the way you make the world feel softer just by being in it.
+					</p>
+					<p>
+						On <strong>March 19, 2027</strong>, I get to call you my wife. I
+						already feel lucky to call you mine. I promise to keep choosing you:
+						on the big days, the quiet days, and every beautifully ordinary day
+						in between.
+					</p>
+					<p>
+						Happy fourth anniversary, sweetheart. Here's to the life we're
+						building, the home we'll make, and all the adventures still waiting
+						for us. My best days have you in them. My forever will, too.
+					</p>
+					<p class="sign">All my love, always ♡</p>
+				</article>
+			</section>
+			<section class="count-section">
+				<span class="eyebrow">The next chapter is getting closer</span>
+				<h2>Until I get to call you<br /><em>my wife.</em></h2>
+				<p>Counting down to the day our forever begins.</p>
+				<div class="timer" aria-label="Countdown to our wedding">
+					<div class="unit">
+						<strong id="days">000</strong><span>Days</span>
+					</div>
+					<div class="unit">
+						<strong id="hours">00</strong><span>Hours</span>
+					</div>
+					<div class="unit">
+						<strong id="minutes">00</strong><span>Minutes</span>
+					</div>
+					<div class="unit">
+						<strong id="seconds">00</strong><span>Seconds</span>
+					</div>
+				</div>
+				<div class="wedding-date">March 19, 2027&nbsp; · &nbsp;our forever</div>
+			</section>
+			<section class="closing">
+				<div class="big-heart">♡</div>
+				<h2>You are my today<br />and all my tomorrows.</h2>
+				<p>Happy anniversary, my love. I choose you. Every day. Always.</p>
+			</section>
+			<footer class="footer">MADE WITH ALL MY LOVE · JUST FOR YOU</footer>
+		</main>
+		<script>
+			// Personalize this to any eight-digit code you like.
+			const PASSWORD = "11192022";
+			const digitsEl = document.getElementById("digits");
+			for (let i = 0; i < 8; i++) {
+				const input = document.createElement("input");
+				input.type = "password";
+				input.inputMode = "numeric";
+				input.maxLength = 1;
+				input.autocomplete = i === 0 ? "one-time-code" : "off";
+				input.setAttribute("aria-label", `Password digit ${i + 1}`);
+				input.dataset.index = i;
+				digitsEl.appendChild(input);
+			}
+			const inputs = [...digitsEl.querySelectorAll("input")];
+			inputs.forEach((input, i) => {
+				input.addEventListener("input", () => {
+					input.value = input.value.replace(/\D/g, "").slice(-1);
+					if (input.value && i < 7) inputs[i + 1].focus();
+				});
+				input.addEventListener("keydown", (e) => {
+					if (e.key === "Backspace" && !input.value && i > 0)
+						inputs[i - 1].focus();
+					if (e.key === "Enter") unlock();
+				});
+				input.addEventListener("paste", (e) => {
+					const paste = (e.clipboardData || window.clipboardData)
+						.getData("text")
+						.replace(/\D/g, "");
+					if (paste.length) {
+						e.preventDefault();
+						paste
+							.slice(0, 8)
+							.split("")
+							.forEach((d, j) => (inputs[j].value = d));
+						inputs[Math.min(paste.length, 7)].focus();
+					}
+				});
+			});
+			function unlock() {
+				const val = inputs.map((x) => x.value).join("");
+				if (val === PASSWORD) {
+					document.getElementById("gate").classList.add("gone");
+					document.getElementById("main").classList.add("show");
+					confetti();
+					setTimeout(() => document.getElementById("gate").remove(), 1000);
+				} else {
+					document.getElementById("error").textContent =
+						"Hmm, that’s not quite it. Try the special date again ♡";
+					inputs.forEach((x) => (x.value = ""));
+					inputs[0].focus();
+				}
+			}
+			document.getElementById("unlock").addEventListener("click", unlock);
+			function confetti() {
+				const colors = ["#cf7184", "#e6b7a8", "#d1ad74", "#fff0df", "#a95e71"];
+				for (let i = 0; i < 95; i++) {
+					const p = document.createElement("i");
+					p.className = "confetti";
+					p.style.left = Math.random() * 100 + "vw";
+					p.style.background = colors[i % colors.length];
+					p.style.animationDelay = Math.random() * 1.2 + "s";
+					p.style.transform = `rotate(${Math.random() * 360}deg)`;
+					document.body.appendChild(p);
+					setTimeout(() => p.remove(), 5000);
+				}
+				for (let i = 0; i < 14; i++) {
+					const h = document.createElement("i");
+					h.className = "float-heart";
+					h.textContent = "♥";
+					h.style.left = Math.random() * 100 + "vw";
+					h.style.bottom = "-20px";
+					h.style.fontSize = 12 + Math.random() * 22 + "px";
+					h.style.animationDelay = Math.random() * 0.8 + "s";
+					document.body.appendChild(h);
+					setTimeout(() => h.remove(), 3500);
+				}
+			}
+			const envelope = document.getElementById("envelope"),
+				letter = document.getElementById("letter"),
+				area = document.getElementById("envelopeArea");
+			function openLetter() {
+				const open = envelope.classList.toggle("open");
+				letter.classList.toggle("open", open);
+				document.getElementById("tapNote").textContent = open
+					? "A little piece of my heart, just for you"
+					: "Tap the envelope to open your letter";
+			}
+			if (area) {
+				area.addEventListener("click", openLetter);
+				area.addEventListener("keydown", (e) => {
+					if (e.key === "Enter" || e.key === " ") {
+						e.preventDefault();
+						openLetter();
+					}
+				});
+			}
+			function countdown() {
+				const target = new Date("2027-03-19T00:00:00");
+				let ms = Math.max(0, target - new Date());
+				const d = Math.floor(ms / 86400000);
+				ms %= 86400000;
+				document.getElementById("days").textContent = String(d).padStart(
+					3,
+					"0",
+				);
+				document.getElementById("hours").textContent = String(
+					Math.floor(ms / 3600000),
+				).padStart(2, "0");
+				ms %= 3600000;
+				document.getElementById("minutes").textContent = String(
+					Math.floor(ms / 60000),
+				).padStart(2, "0");
+				document.getElementById("seconds").textContent = String(
+					Math.floor(ms / 1000) % 60,
+				).padStart(2, "0");
+			}
+			countdown();
+			setInterval(countdown, 1000);
+			inputs[0].focus();
+		</script>
+	</body>
+</html>
